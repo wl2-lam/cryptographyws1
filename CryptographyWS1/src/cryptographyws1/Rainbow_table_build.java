@@ -5,12 +5,10 @@
  */
 package cryptographyws1;
 
-import com.sun.xml.internal.ws.util.StringUtils;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.lang.AbstractMethodError.*;
-import java.io.*;
+import java.util.*;
 
 /**
  *
@@ -23,38 +21,38 @@ public class Rainbow_table_build {
      */
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         Rainbow_table_build foo = new Rainbow_table_build();
-        foo.build();
+        foo.generate();
 
     }
 
-    public void build() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        String s= "aaaaaa";
-        int count=0;
-        int i ;
-        String s1[] = new String[10000];
-        String left[]= new String[10000];
-        String right[]= new String[10000];
-        left[0] = "aaaaaa";
-        s1[0]="aaaaaa";
-        for(int g =0;g<100;g++){
-            System.out.println("4");
-        for ( i = 0; i < 10; i++) {
-            while (g<99){
-            s1[i+1]=SHA1(left[g]);
-            s1[i+1]=shortHash(s1[i+1]);       
-            if (i==9&&g<9999) {
-                left[g+1]=s1[i+1];
-                System.out.println("4");
+    public void generate() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        String[] table = new String[1000];
+        String[] temp = new String[12];
+        temp[0] = "aaaa";
+        table[0] = "aaaa";
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < temp.length; j++) {
+                temp[j] = SHA1(table[i]);
+                if (j + 1 < temp.length) {
+                    temp[j + 1] = shortHash(temp[j]);
+                }
+                j++;
+
             }
+            if (i + 2 < 1000) {
+                table[i + 1] = temp[10];
+                table[i+2]=shortHash(temp[10]);
+                i++;
+                
+
             }
-            
-        }
 
         }
-        for (String left1 : left) {
-            System.out.println(left1);
+        for (int i = 0; i < table.length; i++) {
+            System.out.println(table[i]);
+
         }
-        
+
     }
 
     private static String convertToHex(byte[] data) {
@@ -83,8 +81,7 @@ public class Rainbow_table_build {
         sha1hash = md.digest();
         return convertToHex(sha1hash);
     }
-public static String shortHash(String sha) {
-    return Integer.toString(sha.hashCode() & 0x7FFFFFFF, 36).substring(0, 3);
+    public static String shortHash(String sha) {
+    return Integer.toString(sha.hashCode() & 0x7FFFFFFF, 36).substring(0, 4);
 }
-
 }

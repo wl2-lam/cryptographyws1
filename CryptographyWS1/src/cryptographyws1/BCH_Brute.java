@@ -5,6 +5,9 @@
  */
 package cryptographyws1;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 /**
@@ -16,7 +19,7 @@ public class BCH_Brute {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         System.out.println("please enter passsword");
         String s = "";
         BCH_Brute w = new BCH_Brute();
@@ -30,6 +33,7 @@ public class BCH_Brute {
             if (b == false) {
                 break;
             }
+            test1 = SHA1(c1);
             if (test1.equals(s)) {
                 System.out.println("The password is " + c1);
                 b = true;
@@ -41,6 +45,7 @@ public class BCH_Brute {
                     if (b == false) {
                         break;
                     }
+                    test2 = SHA1(c1 + c2);
                     if (test2.equals(s)) {
                         System.out.println("The password is " + c1 + c2);
 
@@ -53,6 +58,7 @@ public class BCH_Brute {
                             if (b == false) {
                                 break;
                             }
+                            test3 = SHA1(c1 + c2 + c3);
                             if (test3.equals(s)) {
                                 System.out.println("The password is " + c1 + c2 + c3);
 
@@ -65,6 +71,7 @@ public class BCH_Brute {
                                     if (b == false) {
                                         break;
                                     }
+                                    test4 = SHA1(c1 + c2 + c3 + c4);
                                     if (test4.equals(s)) {
                                         System.out.println("The password is " + c1 + c2 + c3 + c4);
                                         b = true;
@@ -76,6 +83,7 @@ public class BCH_Brute {
                                             if (b == false) {
                                                 break;
                                             }
+                                            test5 = SHA1(c1 + c2 + c3 + c4 + c5);
                                             if (test5.equals(s)) {
                                                 System.out.println("The password is " + c1 + c2 + c3 + c4 + c5);
                                                 b = true;
@@ -87,6 +95,7 @@ public class BCH_Brute {
                                                     if (b == false) {
                                                         break;
                                                     }
+                                                    test6 = SHA1(c1 + c2 + c3 + c4 + c5 + c6);
                                                     if (test6.equals(s)) {
                                                         System.out.println("The password is " + c1 + c2 + c3 + c4 + c5 + c6);
                                                         b = true;
@@ -99,7 +108,8 @@ public class BCH_Brute {
                                                             if (b == false) {
                                                                 break;
                                                             }
-                                                            if (test5.equals(s)) {
+                                                            test7 = SHA1(c1 + c2 + c3 + c4 + c5 + c6 + c7);
+                                                            if (test7.equals(s)) {
                                                                 System.out.println("The password is " + c1 + c2 + c3 + c4 + c5 + c6 + c7);
                                                                 b = true;
                                                                 break;
@@ -110,7 +120,8 @@ public class BCH_Brute {
                                                                     if (b == false) {
                                                                         break;
                                                                     }
-                                                                    if (test5.equals(s)) {
+                                                                    test8 = SHA1(c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8);
+                                                                    if (test8.equals(s)) {
                                                                         System.out.println("The password is " + c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8);
                                                                         b = true;
                                                                         break;
@@ -121,7 +132,8 @@ public class BCH_Brute {
                                                                             if (b == false) {
                                                                                 break;
                                                                             }
-                                                                            if (test5.equals(s)) {
+                                                                            test9 = SHA1(c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9);
+                                                                            if (test9.equals(s)) {
                                                                                 System.out.println("The password is " + c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9);
                                                                                 b = true;
                                                                                 break;
@@ -132,7 +144,8 @@ public class BCH_Brute {
                                                                                     if (b == false) {
                                                                                         break;
                                                                                     }
-                                                                                    if (test5.equals(s)) {
+                                                                                    test10 = SHA1(c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9 + c10);
+                                                                                    if (test10.equals(s)) {
                                                                                         System.out.println("The password is " + c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9 + c10);
                                                                                         b = true;
                                                                                         break;
@@ -156,7 +169,7 @@ public class BCH_Brute {
                 }
             }
         }
-          if (b==false) {
+        if (b == false) {
             System.out.println("cant find solution");
         }
     }
@@ -177,5 +190,33 @@ public class BCH_Brute {
             }
         }
         return t;
+
+    }
+
+    private static String convertToHex(byte[] data) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < data.length; i++) {
+            int halfbyte = (data[i] >>> 4) & 0x0F;
+            int two_halfs = 0;
+            do {
+                if ((0 <= halfbyte) && (halfbyte <= 9)) {
+                    buf.append((char) ('0' + halfbyte));
+                } else {
+                    buf.append((char) ('a' + (halfbyte - 10)));
+                }
+                halfbyte = data[i] & 0x0F;
+            } while (two_halfs++ < 1);
+        }
+        return buf.toString();
+    }
+
+    public static String SHA1(String text)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md;
+        md = MessageDigest.getInstance("SHA-1");
+        byte[] sha1hash = new byte[40];
+        md.update(text.getBytes("iso-8859-1"), 0, text.length());
+        sha1hash = md.digest();
+        return convertToHex(sha1hash);
     }
 }
