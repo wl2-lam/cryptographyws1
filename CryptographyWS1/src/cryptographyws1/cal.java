@@ -14,19 +14,10 @@ import java.util.*;
 public class cal {
 
     public static void main(String[] args) {
-String s ="sdf0221sd3f2s1df32s45f42s";
-Scanner sc = new Scanner(s);
-        while (sc.hasNext()) {
-            boolean v = true;
-            if (v=false) {
-                String  s1 = sc.next();
-            }
+String[] s= new String[10];
+        for (int i = 0; i < s.length; i++) {
+            System.out.println(i);
             
         }
-     
-     
-
-        System.out.println(s);
-   
     }
 }
