@@ -14,59 +14,59 @@ import java.util.Scanner;
 
 /**
  *
- * @author wl2-lam
+ * @author Tim Lam
  */
-public class Rainbow_table_build {
+public class Rainbow_table_look_up {
 
     /**
      * @param args the command line arguments
      */
-//    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-//        Rainbow_table_build foo = new Rainbow_table_build();
-//        int i =0;
-//        String[][] table= new String[100][100];
-//       table= foo.generate(i);
-//
-//    }
-    public static int count;
-    public static int passwordsize;
-    public String[][] generate(int table_size,int num) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    static int table_size=0;
+    static int password_size;
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+      Rainbow_table_build rainbowtable = new Rainbow_table_build();
+      String Password="";
+      int num=0;
+      
+        System.out.println("Please enter password");
         
-        
-        
+        Scanner sc = new Scanner(System.in);
+        Password=sc.next();
+        System.out.println("please enter size of table you want to generate(1=100):");
+        table_size=sc.nextInt();        
+        System.out.println("please enter how many alphabet you want at the start of the chain");
+        num=sc.nextInt();
+        System.out.println("please enter the password size");
+        password_size=sc.nextInt();
+        rainbowtable.SetPasswordSpace(password_size);
         String[][] table = new String[table_size][2];
-        
-        String temp = "";
-        for (int i = 0; i < table.length; i++) {
-            table[i][0] = randomWord(num);
-            table[i][1]=generateChain(table[i][0]);
-
-        }
-        
-        return table;
- 
-
+      table=rainbowtable.generate(table_size,num);
+//      System.out.println(Arrays.deepToString(table));
+Rainbow_table_look_up r = new Rainbow_table_look_up();
+      r.lookup(table,Password);
     }
-     private String generateChain(String start) {
-        String pass = start;
-        String hash;
-        String pass1="";
-        String hash1;
-
-        for (int i = 0; i < 100; i++) {
-            hash = SHA1.encode(pass.getBytes());
-            pass = reduction1(hash,i);
-//            hash1=SHA1.encode(pass.getBytes());
-//            pass1= reduction2(hash1);
+    public void lookup(String s[][],String password) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+        boolean find=false;
+        
+        
+        while(find!=true){            
+        for (int i = 0; i < s.length; i++) {
+            
+            password=reduction1(password,i);
+            
+        
+       for (int j = 0; j < 2; j++) {
+        if (s[i][j].equals(password)){
+            System.out.println("the password has been found, it is: "+password);
+        find=true;
+        }else{
+            password=SHA1(password);
         }
-
-        return pass;
     }
-     public void SetPasswordSpace(int size){
-         passwordsize=size;
-     }
-
-    public String reduction1(String s,int p) {
+}
+        }
+    }
+      public String reduction1(String s,int p) {
         int result = 0;
         int base = 0;
         int remain = 0;

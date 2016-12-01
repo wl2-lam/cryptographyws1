@@ -18,16 +18,17 @@ public class Brute_force {
 
     /**
      * @param args the command line arguments
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.io.UnsupportedEncodingException
      */
     @SuppressWarnings("empty-statement")
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-
+        System.out.println("please enter passsword");
         String s = "";
         Scanner sc = new Scanner(System.in);
         s = sc.next();
         boolean b = false;
-        String[] c = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-
+        String[] c = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ""};
         for (String c1 : c) {
             String test1 = SHA1(c1);
             if (test1.equals(s)) {
@@ -73,21 +74,21 @@ public class Brute_force {
                                                     } else {
                                                         for (String c7 : c) {
                                                             String test7 = SHA1(c1 + c2 + c3 + c4 + c5 + c6 + c7);
-                                                            if (test5.equals(s)) {
+                                                            if (test7.equals(s)) {
                                                                 System.out.println("The password is " + c1 + c2 + c3 + c4 + c5 + c6 + c7);
                                                                 b = true;
                                                                 break;
                                                             } else {
                                                                 for (String c8 : c) {
                                                                     String test8 = SHA1(c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8);
-                                                                    if (test5.equals(s)) {
+                                                                    if (test8.equals(s)) {
                                                                         System.out.println("The password is " + c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8);
                                                                         b = true;
                                                                         break;
                                                                     } else {
                                                                         for (String c9 : c) {
                                                                             String test9 = SHA1(c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9);
-                                                                            if (test5.equals(s)) {
+                                                                            if (test9.equals(s)) {
                                                                                 System.out.println("The password is " + c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9);
                                                                                 b = true;
                                                                                 break;

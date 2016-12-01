@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author wl2-lam
  */
-public class BruteForce_assign {
+public class Brute_force_kai {
 
     /**
      * @param args the command line arguments
